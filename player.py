@@ -3,6 +3,10 @@ from tkinter import ttk
 import pygame.mixer as mixer
 from mutagen.mp3 import MP3
 import os
+import random
+import tkinter.filedialog as filedialog
+import shutil
+from downloader import download
 
 root = tk.Tk()
 root.resizable(0,0)
@@ -12,6 +16,7 @@ songindex = -1
 played = False
 playing = False
 folder = os.listdir("media")
+looping = False
 
 def play():
     global playing, played
@@ -30,6 +35,8 @@ def play():
 def back():
     global player, folder, totaltime, progress, songindex, timer, playing, currenttime, played 
     songindex -= 1
+    if songindex < -len(folder):
+        songindex = len(folder)-1
     audio = "media/"+folder[songindex]
     mixer.music.load(audio)
     info = MP3(audio)
@@ -45,11 +52,17 @@ def back():
     root.title(folder[songindex])
     Songname.config(text=folder[songindex])
     played = False
+    play()
 
 def forward():
-    global player, folder, totaltime, progress, songindex, timer, playing, currenttime, played 
-    songindex += 1
-    audio = "media/"+folder[songindex]
+    global player, folder, totaltime, progress, songindex, timer, playing, currenttime, played, looping
+    if not looping:
+        songindex += 1
+    try:
+        audio = "media/"+folder[songindex]
+    except IndexError:
+        songindex = 0
+        audio = "media/"+folder[songindex]
     mixer.music.load(audio)
     info = MP3(audio)
     minutes, seconds = convert(info.info.length)
@@ -64,6 +77,24 @@ def forward():
     root.title(folder[songindex])
     Songname.config(text=folder[songindex])
     played = False
+    play()
+
+def loop():
+    global looping
+    if not looping:
+        looping = True
+    else:
+        looping = False
+    loopStatus.config(text="looping: "+str(looping))
+
+def importer():
+    global folder, queue
+    files = filedialog.askopenfilenames()
+    for i in files:
+        folder.append(i.split("/")[-1])
+        queue.insert(tk.END, i.split("/")[-1])
+        shutil.copy(i, "media/"+i.split("/")[-1])
+
 
 Songname = tk.Label(root, text="")
 Songname.grid(column=0, row=0, columnspan=3, pady=10, padx=10)
@@ -80,6 +111,24 @@ BackwardsButton = tk.Button(root, text="back", padx=10, pady=5, command=back).gr
 PlayButton = tk.Button(root, text="play / pause", padx=10, pady=5, command=play).grid(column=1, row=3)
 ForwardsButton = tk.Button(root, text="forward", padx=10, pady=5, command=forward).grid(column=2, row=3)
 
+randomButton = tk.Button(root, text="random", padx=10, pady=5, command=lambda: random.shuffle(folder)).grid(column=0, row=4)
+loopStatus = tk.Label(root, text="looping: "+str(looping))
+loopStatus.grid(column=1, row=4)
+loopButton = tk.Button(root, text="loop", padx=10, pady=5, command=loop).grid(column=2, row=4)
+
+queue = tk.Listbox(root, width=50, height=10)
+queue.grid(column=0, row=5, columnspan=3)
+
+importButton = tk.Button(root, text="import", padx=10, pady=5, command=importer).grid(column=1, row=6)
+
+DownloadEntery = tk.Entry(root, width=50)
+DownloadEntery.grid(column=0, row=6)
+
+DownloadButton = tk.Button(root, text="download", padx=10, pady=5, command=lambda: download(DownloadEntery.get())).grid(column=2, row=6)
+
+
+for i in folder:
+    queue.insert(tk.END, i)
 
 def convert(seconds):
     seconds %= 3600
@@ -88,12 +137,20 @@ def convert(seconds):
     return(mins, seconds)
 
 def update():
-    global timer, playing, currenttime, progress
+    global timer, playing, currenttime, progress, queue, songindex, looping
+    selected = queue.curselection()
+    if selected != () and selected[0] != songindex:
+        looping = False
+        loopStatus.config(text="looping: "+str(looping))
+        songindex = selected[0]-1
+        forward()
+        
     if playing:
         if currenttime == totaltime:
             playing = False
             timer = 0
             songindex += 1
+            forward()
             return
         timer += 1
         minutes, seconds = convert(timer)
@@ -104,9 +161,10 @@ def update():
         else:
             currenttime.config(text=str(minutes)+":"+"0"+str(seconds))
         progress.config(value=timer)
-        root.update()
+    root.update()
     root.after(1000, update)
 
 root.after(1000, update)
 forward()
+play()
 root.mainloop()
