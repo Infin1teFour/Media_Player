@@ -14,6 +14,7 @@ root = tk.Tk()
 root.resizable(0,0)
 mixer.init()
 songindex = -1
+root.config(bg="#717291")
 
 played = False
 playing = False
@@ -124,35 +125,35 @@ def downloadButton():
     queue.insert(tk.END, name)
 
 
-Songname = tk.Label(root, text="")
+Songname = tk.Label(root, text="", bg="#717291")
 Songname.grid(column=0, row=0, columnspan=3, pady=10, padx=10)
 
 progress = ttk.Progressbar(root, orient=tk.HORIZONTAL, length=420, mode='determinate')
 progress.grid(column=0, row=1, columnspan=3, pady=10)
 
-currenttime = tk.Label(root, text="00:00")
+currenttime = tk.Label(root, text="00:00", bg="#717291")
 currenttime.grid(column=0, row=2)
-totaltime = tk.Label(root, text="00:00")
+totaltime = tk.Label(root, text="00:00", bg="#717291")
 totaltime.grid(column=2, row=2)
 
-BackwardsButton = tk.Button(root, text="back", padx=10, pady=5, command=back).grid(column=0, row=3)
-PlayButton = tk.Button(root, text="play / pause", padx=10, pady=5, command=play).grid(column=1, row=3)
-ForwardsButton = tk.Button(root, text="forward", padx=10, pady=5, command=forward).grid(column=2, row=3)
+BackwardsButton = tk.Button(root, text="back", padx=10, pady=5, command=back, bg="#525269").grid(column=0, row=3)
+PlayButton = tk.Button(root, text="play / pause", padx=10, pady=5, command=play, bg="#525269").grid(column=1, row=3)
+ForwardsButton = tk.Button(root, text="forward", padx=10, pady=5, command=forward, bg="#525269").grid(column=2, row=3)
 
-randomButton = tk.Button(root, text="random", padx=10, pady=5, command=lambda: random.shuffle(folder)).grid(column=0, row=4)
-loopStatus = tk.Label(root, text="looping: "+str(looping))
+randomButton = tk.Button(root, text="random", padx=10, pady=5 ,bg="#525269" , command=lambda: random.shuffle(folder)).grid(column=0, row=4)
+loopStatus = tk.Label(root, text="looping: "+str(looping), bg="#717291")
 loopStatus.grid(column=1, row=4)
-loopButton = tk.Button(root, text="loop", padx=10, pady=5, command=loop).grid(column=2, row=4)
+loopButton = tk.Button(root, text="loop", padx=10, pady=5, command=loop, bg="#525269").grid(column=2, row=4)
 
-queue = tk.Listbox(root, width=70, height=10)
+queue = tk.Listbox(root, width=70, height=10, bg="#000000", fg="#15d104")
 queue.grid(column=0, row=5, columnspan=3)
 
-importButton = tk.Button(root, text="import", padx=10, pady=5, command=importer).grid(column=1, row=6)
+importButton = tk.Button(root, text="import", padx=10, pady=5, command=importer, bg="#525269").grid(column=1, row=6)
 
-DownloadEntery = tk.Entry(root, width=50)
+DownloadEntery = tk.Entry(root, width=50,bg="#AEB0DF")
 DownloadEntery.grid(column=0, row=7, columnspan=2)
 
-DownloadButton = tk.Button(root, text="download", padx=10, pady=5, command=downloadButton).grid(column=2, row=7)
+DownloadButton = tk.Button(root, text="download", padx=10, pady=5, command=downloadButton, bg="#525269").grid(column=2, row=7)
 
 
 for i in folder:
