@@ -13,8 +13,7 @@ from downloader import download
 
 root = tk.Tk()
 root.resizable(0,0)
-icon = PhotoImage(file="C:\Users\2dTp 20232024\Media_Player\icon.png")
-root.iconphoto(True,icon)
+
 
 mixer.init()
 songindex = -1
@@ -24,6 +23,7 @@ playing = False
 folder = os.listdir("media")
 looping = False
 pastSelected = 0
+pastProgress = 0
 
 def play():
     global playing, played
@@ -63,7 +63,6 @@ def back():
     progress.config(maximum=info.info.length)
     timer = 0
     currenttime.config(text="00:00")
-    progress.config(value=0)
     playing = False
     root.title(folder[songindex])
     Songname.config(text=folder[songindex])
@@ -72,7 +71,7 @@ def back():
 
 
 def forward():
-    global player, folder, totaltime, progress, songindex, timer, playing, currenttime, played, looping
+    global player, folder, totaltime, progress, songindex, timer, playing, currenttime, played, looping, info
     if not looping:
         songindex += 1
     try:
@@ -95,14 +94,14 @@ def forward():
     minutes = round(minutes)
     seconds = round(seconds)
     totaltime.config(text=str(minutes)+":"+str(seconds))
-    progress.config(maximum=info.info.length)
     timer = 0
     currenttime.config(text="00:00")
-    progress.config(value=0)
     playing = False
     root.title(folder[songindex])
     Songname.config(text=folder[songindex])
     played = False
+    progress.set(0)
+    progress.config(to=info.info.length)
     play()
 
 def loop():
@@ -197,19 +196,17 @@ def update():
 
         if seek - pastProgress != 0:
             mixer.music.stop()
-            print(pastProgress)
-            print(seek)
-            mixer.music.play(start=seek, loops=looping)
-        timer = progress.get()+1
-        progress.set(timer)
-        minutes, seconds = convert(timer)
+            mixer.music.play(start=seek)
+        seek = progress.get()+1
+        progress.set(seek)
+        minutes, seconds = convert(seek)
         minutes = round(minutes)
         seconds = round(seconds)
         if seconds > 9:
             currenttime.config(text=str(minutes)+":"+str(seconds))
         else:
             currenttime.config(text=str(minutes)+":"+"0"+str(seconds))
-        progress.config(value=timer)
+        progress.set(seek)
     root.update()
     root.after(1000, update)
 
