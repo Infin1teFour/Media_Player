@@ -16,11 +16,42 @@ mixer.init()
 songindex = -1
 root.config(bg="#717291")
 
+if not os.path.exists("media"):
+    os.mkdir("media")
+
 played = False
 playing = False
 folder = os.listdir("media")
 looping = False
 pastSelected = 0
+time = 0
+pastProgress = 0
+
+def getLength(audio):
+    global timer, playing, currenttime, progress, totaltime, played, info
+    try:
+        info = MP3(audio)
+    except:
+        try:
+            info = WAVE(audio)
+        except:
+            try:
+                info = OggVorbis(audio)
+            except:
+                print("error reading file")
+    minutes, seconds = convert(info.info.length)
+    minutes = round(minutes)
+    seconds = round(seconds)
+    totaltime.config(text=str(minutes)+":"+str(seconds))
+    progress.config(to=info.info.length)
+    timer = 0
+    currenttime.config(text="00:00")
+    progress.set(0)
+    playing = False
+    root.title(folder[songindex])
+    Songname.config(text=folder[songindex])
+    played = False
+    play()
 
 def play():
     global playing, played
@@ -43,29 +74,7 @@ def back():
         songindex = len(folder)-1
     audio = "media/"+folder[songindex]
     mixer.music.load(audio)
-    try:
-        info = MP3(audio)
-    except:
-        try:
-            info = WAVE(audio)
-        except:
-            try:
-                info = OggVorbis(audio)
-            except:
-                print("error reading file")
-    minutes, seconds = convert(info.info.length)
-    minutes = round(minutes)
-    seconds = round(seconds)
-    totaltime.config(text=str(minutes)+":"+str(seconds))
-    progress.config(maximum=info.info.length)
-    timer = 0
-    currenttime.config(text="00:00")
-    progress.config(value=0)
-    playing = False
-    root.title(folder[songindex])
-    Songname.config(text=folder[songindex])
-    played = False
-    play()
+    getLength(audio)
 
 
 def forward():
@@ -78,29 +87,7 @@ def forward():
         songindex = 0
         audio = "media/"+folder[songindex]
     mixer.music.load(audio)
-    try:
-        info = MP3(audio)
-    except:
-        try:
-            info = WAVE(audio)
-        except:
-            try:
-                info = OggVorbis(audio)
-            except:
-                print("error reading file")
-    minutes, seconds = convert(info.info.length)
-    minutes = round(minutes)
-    seconds = round(seconds)
-    totaltime.config(text=str(minutes)+":"+str(seconds))
-    progress.config(maximum=info.info.length)
-    timer = 0
-    currenttime.config(text="00:00")
-    progress.config(value=0)
-    playing = False
-    root.title(folder[songindex])
-    Songname.config(text=folder[songindex])
-    played = False
-    play()
+    getLength(audio)
 
 def loop():
     global looping
@@ -128,7 +115,7 @@ def downloadButton():
 Songname = tk.Label(root, text="", bg="#717291")
 Songname.grid(column=0, row=0, columnspan=3, pady=10, padx=10)
 
-progress = ttk.Progressbar(root, orient=tk.HORIZONTAL, length=420, mode='determinate')
+progress = tk.Scale(root, from_=0, to=100, orient=tk.HORIZONTAL, length=420, sliderlength=20, showvalue=1)
 progress.grid(column=0, row=1, columnspan=3, pady=10)
 
 currenttime = tk.Label(root, text="00:00", bg="#717291")
@@ -166,7 +153,7 @@ def convert(seconds):
     return(mins, seconds)
 
 def update():
-    global timer, playing, currenttime, progress, queue, songindex, looping, pastSelected
+    global playing, currenttime, progress, queue, songindex, looping, pastSelected, time, pastProgress
     selected = queue.curselection()
     if selected != () and selected[0] != pastSelected:
         looping = False
@@ -176,13 +163,19 @@ def update():
         forward()
         
     if playing:
+        seek = progress.get()
         if currenttime == totaltime:
             playing = False
             timer = 0
             songindex += 1
             forward()
             return
-        timer += 1
+        if seek - pastProgress != 1:
+            mixer.music.stop()
+            print(seek)
+            mixer.music.play(start=seek)
+        timer = progress.get()+1
+        progress.set(timer)
         minutes, seconds = convert(timer)
         minutes = round(minutes)
         seconds = round(seconds)
@@ -190,7 +183,7 @@ def update():
             currenttime.config(text=str(minutes)+":"+str(seconds))
         else:
             currenttime.config(text=str(minutes)+":"+"0"+str(seconds))
-        progress.config(value=timer)
+    pastProgress = progress.get()
     root.update()
     root.after(1000, update)
 
