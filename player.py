@@ -1,5 +1,6 @@
 import tkinter as tk
 from tkinter import ttk
+from tkinter import *
 import pygame.mixer as mixer
 from mutagen.mp3 import MP3
 from mutagen.wave import WAVE
@@ -12,46 +13,17 @@ from downloader import download
 
 root = tk.Tk()
 root.resizable(0,0)
+icon = PhotoImage(file="C:\Users\2dTp 20232024\Media_Player\icon.png")
+root.iconphoto(True,icon)
+
 mixer.init()
 songindex = -1
-root.config(bg="#717291")
-
-if not os.path.exists("media"):
-    os.mkdir("media")
 
 played = False
 playing = False
 folder = os.listdir("media")
 looping = False
 pastSelected = 0
-time = 0
-pastProgress = 0
-
-def getLength(audio):
-    global timer, playing, currenttime, progress, totaltime, played, info
-    try:
-        info = MP3(audio)
-    except:
-        try:
-            info = WAVE(audio)
-        except:
-            try:
-                info = OggVorbis(audio)
-            except:
-                print("error reading file")
-    minutes, seconds = convert(info.info.length)
-    minutes = round(minutes)
-    seconds = round(seconds)
-    totaltime.config(text=str(minutes)+":"+str(seconds))
-    progress.config(to=info.info.length)
-    timer = 0
-    currenttime.config(text="00:00")
-    progress.set(0)
-    playing = False
-    root.title(folder[songindex])
-    Songname.config(text=folder[songindex])
-    played = False
-    play()
 
 def play():
     global playing, played
@@ -74,7 +46,29 @@ def back():
         songindex = len(folder)-1
     audio = "media/"+folder[songindex]
     mixer.music.load(audio)
-    getLength(audio)
+    try:
+        info = MP3(audio)
+    except:
+        try:
+            info = WAVE(audio)
+        except:
+            try:
+                info = OggVorbis(audio)
+            except:
+                print("error reading file")
+    minutes, seconds = convert(info.info.length)
+    minutes = round(minutes)
+    seconds = round(seconds)
+    totaltime.config(text=str(minutes)+":"+str(seconds))
+    progress.config(maximum=info.info.length)
+    timer = 0
+    currenttime.config(text="00:00")
+    progress.config(value=0)
+    playing = False
+    root.title(folder[songindex])
+    Songname.config(text=folder[songindex])
+    played = False
+    play()
 
 
 def forward():
@@ -87,7 +81,29 @@ def forward():
         songindex = 0
         audio = "media/"+folder[songindex]
     mixer.music.load(audio)
-    getLength(audio)
+    try:
+        info = MP3(audio)
+    except:
+        try:
+            info = WAVE(audio)
+        except:
+            try:
+                info = OggVorbis(audio)
+            except:
+                print("error reading file")
+    minutes, seconds = convert(info.info.length)
+    minutes = round(minutes)
+    seconds = round(seconds)
+    totaltime.config(text=str(minutes)+":"+str(seconds))
+    progress.config(maximum=info.info.length)
+    timer = 0
+    currenttime.config(text="00:00")
+    progress.config(value=0)
+    playing = False
+    root.title(folder[songindex])
+    Songname.config(text=folder[songindex])
+    played = False
+    play()
 
 def loop():
     global looping
@@ -112,35 +128,35 @@ def downloadButton():
     queue.insert(tk.END, name)
 
 
-Songname = tk.Label(root, text="", bg="#717291")
+Songname = tk.Label(root, text="")
 Songname.grid(column=0, row=0, columnspan=3, pady=10, padx=10)
 
-progress = tk.Scale(root, from_=0, to=100, orient=tk.HORIZONTAL, length=420, sliderlength=20, showvalue=1)
+progress = ttk.Progressbar(root, orient=tk.HORIZONTAL, length=420, mode='determinate')
 progress.grid(column=0, row=1, columnspan=3, pady=10)
 
-currenttime = tk.Label(root, text="00:00", bg="#717291")
+currenttime = tk.Label(root, text="00:00")
 currenttime.grid(column=0, row=2)
-totaltime = tk.Label(root, text="00:00", bg="#717291")
+totaltime = tk.Label(root, text="00:00")
 totaltime.grid(column=2, row=2)
 
-BackwardsButton = tk.Button(root, text="back", padx=10, pady=5, command=back, bg="#525269").grid(column=0, row=3)
-PlayButton = tk.Button(root, text="play / pause", padx=10, pady=5, command=play, bg="#525269").grid(column=1, row=3)
-ForwardsButton = tk.Button(root, text="forward", padx=10, pady=5, command=forward, bg="#525269").grid(column=2, row=3)
+BackwardsButton = tk.Button(root, text="back", padx=10, pady=5, command=back).grid(column=0, row=3)
+PlayButton = tk.Button(root, text="play / pause", padx=10, pady=5, command=play).grid(column=1, row=3)
+ForwardsButton = tk.Button(root, text="forward", padx=10, pady=5, command=forward).grid(column=2, row=3)
 
-randomButton = tk.Button(root, text="random", padx=10, pady=5 ,bg="#525269" , command=lambda: random.shuffle(folder)).grid(column=0, row=4)
-loopStatus = tk.Label(root, text="looping: "+str(looping), bg="#717291")
+randomButton = tk.Button(root, text="random", padx=10, pady=5, command=lambda: random.shuffle(folder)).grid(column=0, row=4)
+loopStatus = tk.Label(root, text="looping: "+str(looping))
 loopStatus.grid(column=1, row=4)
-loopButton = tk.Button(root, text="loop", padx=10, pady=5, command=loop, bg="#525269").grid(column=2, row=4)
+loopButton = tk.Button(root, text="loop", padx=10, pady=5, command=loop).grid(column=2, row=4)
 
-queue = tk.Listbox(root, width=70, height=10, bg="#000000", fg="#15d104")
+queue = tk.Listbox(root, width=70, height=10)
 queue.grid(column=0, row=5, columnspan=3)
 
-importButton = tk.Button(root, text="import", padx=10, pady=5, command=importer, bg="#525269").grid(column=1, row=6)
+importButton = tk.Button(root, text="import", padx=10, pady=5, command=importer).grid(column=1, row=6)
 
-DownloadEntery = tk.Entry(root, width=50,bg="#AEB0DF")
+DownloadEntery = tk.Entry(root, width=50)
 DownloadEntery.grid(column=0, row=7, columnspan=2)
 
-DownloadButton = tk.Button(root, text="download", padx=10, pady=5, command=downloadButton, bg="#525269").grid(column=2, row=7)
+DownloadButton = tk.Button(root, text="download", padx=10, pady=5, command=downloadButton).grid(column=2, row=7)
 
 
 for i in folder:
@@ -153,7 +169,7 @@ def convert(seconds):
     return(mins, seconds)
 
 def update():
-    global playing, currenttime, progress, queue, songindex, looping, pastSelected, time, pastProgress
+    global timer, playing, currenttime, progress, queue, songindex, looping, pastSelected
     selected = queue.curselection()
     if selected != () and selected[0] != pastSelected:
         looping = False
@@ -163,19 +179,13 @@ def update():
         forward()
         
     if playing:
-        seek = progress.get()
         if currenttime == totaltime:
             playing = False
             timer = 0
             songindex += 1
             forward()
             return
-        if seek - pastProgress != 1:
-            mixer.music.stop()
-            print(seek)
-            mixer.music.play(start=seek)
-        timer = progress.get()+1
-        progress.set(timer)
+        timer += 1
         minutes, seconds = convert(timer)
         minutes = round(minutes)
         seconds = round(seconds)
@@ -183,7 +193,7 @@ def update():
             currenttime.config(text=str(minutes)+":"+str(seconds))
         else:
             currenttime.config(text=str(minutes)+":"+"0"+str(seconds))
-    pastProgress = progress.get()
+        progress.config(value=timer)
     root.update()
     root.after(1000, update)
 
