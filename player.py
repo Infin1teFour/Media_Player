@@ -52,7 +52,6 @@ def back():
                 info = OggVorbis(audio)
             except:
                 print("error reading file")
-                
     minutes, seconds = convert(info.info.length)
     minutes = round(minutes)
     seconds = round(seconds)
@@ -78,7 +77,16 @@ def forward():
         songindex = 0
         audio = "media/"+folder[songindex]
     mixer.music.load(audio)
-    info = MP3(audio)
+    try:
+        info = MP3(audio)
+    except:
+        try:
+            info = WAVE(audio)
+        except:
+            try:
+                info = OggVorbis(audio)
+            except:
+                print("error reading file")
     minutes, seconds = convert(info.info.length)
     minutes = round(minutes)
     seconds = round(seconds)
@@ -103,7 +111,7 @@ def loop():
 
 def importer():
     global folder, queue
-    files = filedialog.askopenfilenames()
+    files = filedialog.askopenfilenames(filetypes=[("Media files", ".mp3 .wav .ogg")])
     for i in files:
         folder.append(i.split("/")[-1])
         queue.insert(tk.END, i.split("/")[-1])
