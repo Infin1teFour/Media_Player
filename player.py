@@ -57,7 +57,7 @@ def play():
     global playing, played
     if not playing:
         if not played:
-            mixer.music.play()
+            mixer.music.play(loops=looping)
             played = True
         else:
             mixer.music.unpause()
@@ -115,7 +115,7 @@ def downloadButton():
 Songname = tk.Label(root, text="", bg="#717291")
 Songname.grid(column=0, row=0, columnspan=3, pady=10, padx=10)
 
-progress = tk.Scale(root, from_=0, to=100, orient=tk.HORIZONTAL, length=420, sliderlength=20, showvalue=1)
+progress = tk.Scale(root, from_=0, to=100, orient=tk.HORIZONTAL, length=420, sliderlength=20, showvalue=0, bg="#717291", fg="#15d104", highlightthickness=0, troughcolor="#525269")
 progress.grid(column=0, row=1, columnspan=3, pady=10)
 
 currenttime = tk.Label(root, text="00:00", bg="#717291")
@@ -153,7 +153,8 @@ def convert(seconds):
     return(mins, seconds)
 
 def update():
-    global playing, currenttime, progress, queue, songindex, looping, pastSelected, time, pastProgress
+    global playing, currenttime, progress, queue, songindex, looping, pastSelected, time, pastProgress, info
+    print("testing")
     selected = queue.curselection()
     if selected != () and selected[0] != pastSelected:
         looping = False
@@ -164,16 +165,25 @@ def update():
         
     if playing:
         seek = progress.get()
-        if currenttime == totaltime:
+        print(info.info.length)
+        print(seek)
+        if seek == round(info.info.length):
             playing = False
             timer = 0
             songindex += 1
+            if looping:
+                songindex -= 1
             forward()
+            root.after(1000, update)
+            seek = 0
+            pastProgress = 0
             return
-        if seek - pastProgress != 1:
+
+        if seek - pastProgress != 0:
             mixer.music.stop()
+            print(pastProgress)
             print(seek)
-            mixer.music.play(start=seek)
+            mixer.music.play(start=seek, loops=looping)
         timer = progress.get()+1
         progress.set(timer)
         minutes, seconds = convert(timer)
