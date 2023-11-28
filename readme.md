@@ -1,7 +1,7 @@
 # Music-Playerify
 program służy do odtwarzania plików z podanego folderu "media"
 
-# Tworzenie
+# To-Do
 1. stworzyć bazowy interfejs #
 2. Dodać funkcjonalność odtwarzania plików #
 3. Dodać funkcjonalność paska postępu i wyświetlić długość odtwarzanego pliku #
@@ -10,5 +10,5 @@ program służy do odtwarzania plików z podanego folderu "media"
 6. Opcja pętli #
 7. Kolejka odtwarzania #
 8. Opcja losowania #
-9. możliwość importu plików zewnętrznych
-10. pobieranie plików z youtube
+9. możliwość importu plików zewnętrznych #
+10. pobieranie plików z youtube #

@@ -15,8 +15,6 @@ def download(url):
             nameNomp4 = name.replace(".mp4", "")
             audio.write_audiofile("media/"+nameNomp4+".mp3")
             os.remove("media/"+name)
-            folder.append(nameNomp4+".mp3")
-            queue.insert(Tk.END, nameNomp4+".mp3")
-
+            return nameNomp4+".mp3"
     print("Converted to mp3")
 
