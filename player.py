@@ -179,7 +179,7 @@ volumeSlider = tk.Scale(root, from_=100, to=0, orient=tk.VERTICAL, length=420, s
 volumeSlider.grid(column=3, row=0, rowspan=8, padx=10)
 volumeSlider.set(100)
 
-volumeLabel = tk.Label(root, text="Volume")
+volumeLabel = tk.Label(root, text="Volume", bg="#717291")
 volumeLabel.grid(column=3, row=8)
 
 for i in folder:
