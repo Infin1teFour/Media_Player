@@ -169,7 +169,6 @@ def convert(seconds):
 
 def update():
     global playing, currenttime, progress, queue, songindex, looping, pastSelected, time, pastProgress, info
-    print("testing")
     selected = queue.curselection()
     if selected != () and selected[0] != pastSelected:
         looping = False
@@ -193,7 +192,7 @@ def update():
             seek = 0
             pastProgress = 0
             return
-
+        print(pastProgress)
         if seek - pastProgress != 0:
             mixer.music.stop()
             mixer.music.play(start=seek)
@@ -202,11 +201,13 @@ def update():
         minutes, seconds = convert(seek)
         minutes = round(minutes)
         seconds = round(seconds)
+
         if seconds > 9:
             currenttime.config(text=str(minutes)+":"+str(seconds))
         else:
             currenttime.config(text=str(minutes)+":"+"0"+str(seconds))
         progress.set(seek)
+        pastProgress = seek
     root.update()
     root.after(1000, update)
 
