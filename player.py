@@ -1,16 +1,24 @@
-import tkinter as tk
-from tkinter import ttk
-from tkinter import *
-import pygame.mixer as mixer
-from mutagen.mp3 import MP3
-from mutagen.wave import WAVE
-from mutagen.oggvorbis import OggVorbis
-import os
-import random
-import tkinter.filedialog as filedialog
-import shutil
-from downloader import download
-import pyglet
+try:
+    import os
+    import tkinter as tk
+    import random
+    from tkinter import ttk
+    from tkinter import *
+    import pygame.mixer as mixer
+    from mutagen.mp3 import MP3
+    from mutagen.wave import WAVE
+    from mutagen.oggvorbis import OggVorbis
+    import tkinter.filedialog as filedialog
+    import shutil
+    from downloader import download
+    import pyglet
+except ImportError:
+    import os
+    print("Error importing modules")
+    os.system("pip install -r requirements.txt")
+    print("Restarting...")
+    os.system("python player.py")
+    
 
 root = tk.Tk()
 root.resizable(0,0)
@@ -19,7 +27,7 @@ root.config(bg="#717291")
 
 pyglet.options['win32_gdi_font'] = True
 pyglet.resource.add_font("NovaSquare-Regular.ttf")
-font = ("Nova Square", 12)
+font = "Nova Square"
 
 if not os.path.exists("media"):
     os.mkdir("media")
@@ -145,7 +153,7 @@ def noSongCheck():
         forward()
         play()
 
-Songname = tk.Label(root, text="",bg="#717291", font=font)
+Songname = tk.Label(root, text="",bg="#717291", font=(font, 12))
 Songname.grid(column=0, row=0, columnspan=3, pady=10, padx=10)
 
 progress = tk.Scale(root, from_=0, to=100, orient=tk.HORIZONTAL, length=420, sliderlength=20, showvalue=0, bg="#717291", fg="#15d104", highlightthickness=0, troughcolor="#525269")
@@ -165,13 +173,13 @@ loopStatus = tk.Label(root, text="looping: "+str(looping),bg="#717291")
 loopStatus.grid(column=1, row=4)
 loopButton = tk.Button(root, text="loop", padx=10, pady=5, command=loop, bg="#525269").grid(column=2, row=4)
 
-queue = tk.Listbox(root, width=70, height=10, bg="#000000", fg="#08e600")
+queue = tk.Listbox(root, width=70, height=10, bg="#000000", fg="#08e600", font=(font, 9))
 queue.grid(column=0, row=5, columnspan=3)
 
 importButton = tk.Button(root, text="import", padx=10, pady=5, command=importer, bg="#525269").grid(column=1, row=6)
 
 DownloadEntery = tk.Entry(root, width=50,bg="#AEB0DF")
-DownloadEntery.grid(column=0, row=7, columnspan=2)
+DownloadEntery.grid(column=0, row=7, columnspan=3)
 
 DownloadButton = tk.Button(root, text="download", padx=10, pady=5, command=downloadButton, bg="#525269").grid(column=2, row=7)
 
@@ -205,8 +213,6 @@ def update():
     mixer.music.set_volume(volume/100)
     if playing:
         seek = progress.get()
-        print(info.info.length)
-        print(seek)
         if seek == round(info.info.length):
             playing = False
             timer = 0
@@ -218,7 +224,6 @@ def update():
             seek = 0
             pastProgress = 0
             return
-        print(pastProgress)
         if seek - pastProgress != 0:
             mixer.music.stop()
             mixer.music.play(start=seek)
