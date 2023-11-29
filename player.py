@@ -24,6 +24,7 @@ root = tk.Tk()
 root.resizable(0,0)
 root.title("Media Player")
 root.config(bg="#717291")
+root.iconbitmap("icon.ico")
 
 pyglet.options['win32_gdi_font'] = True
 pyglet.resource.add_font("NovaSquare-Regular.ttf")
