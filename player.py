@@ -10,10 +10,19 @@ import random
 import tkinter.filedialog as filedialog
 import shutil
 from downloader import download
+import pyglet
 
 root = tk.Tk()
 root.resizable(0,0)
+root.title("Media Player")
 
+pyglet.options['win32_gdi_font'] = True
+pyglet.resource.add_font("NovaSquare-Regular.ttf")
+font = ("Nova Square", 12)
+
+
+if not os.path.exists("media"):
+    os.mkdir("media")
 
 mixer.init()
 songindex = -1
@@ -24,6 +33,7 @@ folder = os.listdir("media")
 looping = False
 pastSelected = 0
 pastProgress = 0
+
 
 def play():
     global playing, played
@@ -60,9 +70,9 @@ def back():
     minutes = round(minutes)
     seconds = round(seconds)
     totaltime.config(text=str(minutes)+":"+str(seconds))
-    progress.config(maximum=info.info.length)
+    progress.config(to=info.info.length)
     timer = 0
-    currenttime.config(text="00:00")
+    currenttime.config(text="0:00")
     playing = False
     root.title(folder[songindex])
     Songname.config(text=folder[songindex])
@@ -95,7 +105,7 @@ def forward():
     seconds = round(seconds)
     totaltime.config(text=str(minutes)+":"+str(seconds))
     timer = 0
-    currenttime.config(text="00:00")
+    currenttime.config(text="0:00")
     playing = False
     root.title(folder[songindex])
     Songname.config(text=folder[songindex])
@@ -119,6 +129,7 @@ def importer():
         folder.append(i.split("/")[-1])
         queue.insert(tk.END, i.split("/")[-1])
         shutil.copy(i, "media/"+i.split("/")[-1])
+    noSongCheck()
 
 def downloadButton():
     global DownloadEntery, folder, queue
@@ -126,8 +137,16 @@ def downloadButton():
     folder.append(name)
     queue.insert(tk.END, name)
 
+def noSongCheck():
+    global folder, queue
+    if Songname.cget("text") == "No songs in folder":
+        Songname.config(text=folder[0])
+        root.title(folder[0])
+        forward()
+        play()
 
-Songname = tk.Label(root, text="")
+
+Songname = tk.Label(root, text="", font=font)
 Songname.grid(column=0, row=0, columnspan=3, pady=10, padx=10)
 
 progress = tk.Scale(root, from_=0, to=100, orient=tk.HORIZONTAL, length=420, sliderlength=20, showvalue=0, bg="#717291", fg="#15d104", highlightthickness=0, troughcolor="#525269")
@@ -148,14 +167,21 @@ loopStatus.grid(column=1, row=4)
 loopButton = tk.Button(root, text="loop", padx=10, pady=5, command=loop).grid(column=2, row=4)
 
 queue = tk.Listbox(root, width=70, height=10)
-queue.grid(column=0, row=5, columnspan=3)
+queue.grid(column=0, row=6, columnspan=3)
 
-importButton = tk.Button(root, text="import", padx=10, pady=5, command=importer).grid(column=1, row=6)
+importButton = tk.Button(root, text="import", padx=10, pady=5, command=importer).grid(column=1, row=7)
 
 DownloadEntery = tk.Entry(root, width=50)
-DownloadEntery.grid(column=0, row=7, columnspan=2)
+DownloadEntery.grid(column=0, row=8, columnspan=2)
 
-DownloadButton = tk.Button(root, text="download", padx=10, pady=5, command=downloadButton).grid(column=2, row=7)
+DownloadButton = tk.Button(root, text="download", padx=10, pady=5, command=downloadButton).grid(column=2, row=8)
+
+volumeSlider = tk.Scale(root, from_=100, to=0, orient=tk.VERTICAL, length=420, sliderlength=20, bg="#717291", fg="#15d104", highlightthickness=0, troughcolor="#525269")
+volumeSlider.grid(column=3, row=0, rowspan=8, padx=10)
+volumeSlider.set(100)
+
+volumeLabel = tk.Label(root, text="Volume")
+volumeLabel.grid(column=3, row=8)
 
 
 for i in folder:
@@ -176,7 +202,9 @@ def update():
         songindex = selected[0]-1
         pastSelected = selected[0]
         forward()
-        
+
+    volume = volumeSlider.get()
+    mixer.music.set_volume(volume/100)
     if playing:
         seek = progress.get()
         print(info.info.length)
@@ -212,6 +240,10 @@ def update():
     root.after(1000, update)
 
 root.after(1000, update)
-forward()
-play()
+
+if len(folder) > 0:
+    forward()
+    play()
+else:
+    Songname.config(text="No songs in folder")
 root.mainloop()
