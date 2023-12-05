@@ -13,10 +13,10 @@ from pytube import YouTube
 import os
 from moviepy.editor import *
 ```
-<span style ="color: #5d5d5d" >lines 2-4</span><br>
+
 
 ____________________________________________________________________________________
-<br>
+
 The following section of code defines a function `download(url)`. This function is responsible for downloading a YouTube video, converting it to an mp3 file, and saving it in the "media" folder. It uses the **pytube** library to download the video, and the **moviepy** library to convert the video to an mp3 file. The **os** module is used to interact with the file system. 
 
 ```python
@@ -36,5 +36,5 @@ def download(url):
             return nameNomp4+".mp3"
     print("Converted to mp3")
 ```
-<span style ="color: #5d5d5d" >lines 7-22</span><br>
+
 
