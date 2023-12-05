@@ -19,7 +19,6 @@ except ImportError:
     print("Restarting...")
     os.system("python player.py")
     
-
 root = tk.Tk()
 root.resizable(0,0)
 root.title("Media Player")
