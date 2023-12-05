@@ -1,4 +1,4 @@
-# Imprting and installing modules
+# Importing and installing modules
 try:
     import os
     import tkinter as tk
