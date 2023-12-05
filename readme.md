@@ -1,4 +1,4 @@
-# Music-Playerify
+# Music-Player
 program służy do odtwarzania plików z podanego folderu "media"
 
 ## Code explanation
