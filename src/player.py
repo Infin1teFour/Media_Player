@@ -11,7 +11,7 @@ try:
     from mutagen.oggvorbis import OggVorbis
     import tkinter.filedialog as filedialog
     import shutil
-    from downloader import download
+    from src.downloader import download
     import pyglet
 except ImportError:
     import os
