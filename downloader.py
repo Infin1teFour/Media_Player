@@ -1,7 +1,9 @@
+# Importing libraries
 from pytube import YouTube
 import os
 from moviepy.editor import *
 
+# Downloading the video
 def download(url):
     global folder, queue
     yt = YouTube(url)
@@ -10,6 +12,7 @@ def download(url):
     print("Downloaded "+yt.title+" to media folder")
     filename = os.listdir("media")
     for name in filename:
+        # Changing file extension to mp3
         if name.endswith(".mp4"):
             audio = AudioFileClip("media/"+name)
             nameNomp4 = name.replace(".mp4", "")
