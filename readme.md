@@ -7,7 +7,7 @@ Code uses two pyhton files to work first one is <span style="color:#62adfb">***[
 
 ### Explaining <span style="color:#62adfb">***[downloader.py](https://github.com/Infin1teFour/Media_Player/blob/main/downloader.py)***</span>
 
-This section of code imports all modules (libraries) needed for the program. That includes **pytube** ( library used to download files from YouTube ), **os** ( a module providing functions for interacting with the operating system ), and **moviepy** ( a tool for video editing: cutting, concatenations, title insertions, video compositing, video processing, and creation of custom effects ).
+This section of code imports all modules (libraries) needed for the program. That includes ***pytube*** ( library used to download files from YouTube ), ***os*** ( a module providing functions for interacting with the operating system ), and ***moviepy*** ( a tool for video editing: cutting, concatenations, title insertions, video compositing, video processing, and creation of custom effects ).
 ```python
 from pytube import YouTube
 import os
