@@ -291,7 +291,7 @@ def motyw():
     root_label.grid()
     root_entry = Entry(mot, width=50,bg=entry_bg)
     root_entry.grid()
-    root_button = Button(mot, text = "potwierdź", bg=button_bg, command=lambda: change_colour1)
+    root_button = Button(mot, text = "potwierdź", bg=button_bg, command=change_colour1)
     root_button.grid()
     button_label = Label(mot, text="podaj kolor przycisków", bg= root_bg)
     button_label.grid()
