@@ -1,3 +1,4 @@
+# Importing and installing modules
 try:
     import os
     import tkinter as tk
@@ -24,22 +25,27 @@ button_bg = "#525269"
 listbox_fg = "#08e600"
 entry_bg = "#AEB0DF"
 
+# Opening tkinter window   
 root = tk.Tk()
 root.resizable(0,0)
 root.title("Media Player")
-root.config(bg= root_bg)
-root.iconbitmap("icon.ico")
+root.config(bg="#717291")
+root.iconbitmap("grafiki/icon.ico")
 
+# Setting up fonts
 pyglet.options['win32_gdi_font'] = True
 pyglet.resource.add_font("NovaSquare-Regular.ttf")
 font = "Nova Square"
 
+# Creating media folder if it doesn't exist
 if not os.path.exists("media"):
     os.mkdir("media")
 
+# Setting up pygame mixer
 mixer.init()
 songindex = -1
 
+# Setting up variables
 played = False
 playing = False
 folder = os.listdir("media")
@@ -48,6 +54,7 @@ pastSelected = 0
 pastProgress = 0
 
 
+# Button functions 
 def play():
     global playing, played
     if not playing:
@@ -127,6 +134,7 @@ def forward():
     progress.config(to=info.info.length)
     play()
 
+
 def loop():
     global looping
     if not looping:
@@ -134,6 +142,7 @@ def loop():
     else:
         looping = False
     loopStatus.config(text="looping: "+str(looping))
+
 
 def importer():
     global folder, queue
@@ -144,11 +153,13 @@ def importer():
         shutil.copy(i, "media/"+i.split("/")[-1])
     noSongCheck()
 
+
 def downloadButton():
-    global DownloadEntery, folder, queue
+    global DownloadEntery, folder, queue, playing
     name = download(DownloadEntery.get())
     folder.append(name)
     queue.insert(tk.END, name)
+
 
 def noSongCheck():
     global folder, queue
@@ -197,8 +208,6 @@ volumeSlider.set(100)
 
 volumeLabel = tk.Label(root, text="Volume", bg=root_bg)
 volumeLabel.grid(column=3, row=8)
-
-
 
 for i in folder:
     queue.insert(tk.END, i)
@@ -254,6 +263,7 @@ def update():
 
 root.after(1000, update)
 
+# Checking if there are any songs in the folder
 if len(folder) > 0:
     forward()
     play()
