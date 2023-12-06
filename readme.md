@@ -16,7 +16,8 @@ from moviepy.editor import *
 ```
 
 
-____________________________________________________________________________________
+__________________________________________________________________________________
+#### 2. ***Defineing dawnload function*** 
 
 The following section of code defines a function `download(url)`. This function is responsible for downloading a YouTube video, converting it to an mp3 file, and saving it in the "media" folder. It uses the **pytube** library to download the video, and the **moviepy** library to convert the video to an mp3 file. The **os** module is used to interact with the file system. 
 
@@ -120,3 +121,146 @@ pastSelected = 0
 pastProgress = 0
 ```
 __________________________________________________________________________________
+#### 3. ***Defining button functions***
+
+The `play` function controls the playback of the media. If the media is not currently playing, it will start or resume playback. If the media is currently playing, it will pause playback.
+
+```python
+def play():
+    global playing, played
+    if not playing:
+        if not played:
+            mixer.music.play(loops=looping)
+            played = True
+        else:
+            mixer.music.unpause()
+        playing = True
+    else:
+        mixer.music.pause()
+        playing = False
+```
+</br>
+
+The `back` function loads and plays the previous song in the folder. If the current song is the first one, it will loop back to the last song. It also updates the GUI to reflect the new song's information.
+
+```python
+def back():
+    global player, folder, totaltime, progress, songindex, timer, playing, currenttime, played 
+    songindex -= 1
+    if songindex < -len(folder):
+        songindex = len(folder)-1
+    audio = "media/"+folder[songindex]
+    mixer.music.load(audio)
+    try:
+        info = MP3(audio)
+    except:
+        try:
+            info = WAVE(audio)
+        except:
+            try:
+                info = OggVorbis(audio)
+            except:
+                print("error reading file")
+    minutes, seconds = convert(info.info.length)
+    minutes = round(minutes)
+    seconds = round(seconds)
+    totaltime.config(text=str(minutes)+":"+str(seconds))
+    progress.config(to=info.info.length)
+    timer = 0
+    currenttime.config(text="0:00")
+    playing = False
+    root.title(folder[songindex])
+    Songname.config(text=folder[songindex])
+    played = False
+    play()
+```
+</br>
+
+The `forward` function loads and plays the next song in the folder. If the current song is the last one, it will loop back to the first song. It also updates the GUI to reflect the new song's information.
+
+```python
+def forward():
+    global player, folder, totaltime, progress, songindex, timer, playing, currenttime, played, looping, info
+    if not looping:
+        songindex += 1
+    try:
+        audio = "media/"+folder[songindex]
+    except IndexError:
+        songindex = 0
+        audio = "media/"+folder[songindex]
+    mixer.music.load(audio)
+    try:
+        info = MP3(audio)
+    except:
+        try:
+            info = WAVE(audio)
+        except:
+            try:
+                info = OggVorbis(audio)
+            except:
+                print("error reading file")
+    minutes, seconds = convert(info.info.length)
+    minutes = round(minutes)
+    seconds = round(seconds)
+    totaltime.config(text=str(minutes)+":"+str(seconds))
+    timer = 0
+    currenttime.config(text="0:00")
+    playing = False
+    root.title(folder[songindex])
+    Songname.config(text=folder[songindex])
+    played = False
+    progress.set(0)
+    progress.config(to=info.info.length)
+    play()
+```
+<br>
+
+The `loop` function toggles the looping status of the playlist. If looping is currently off, it will turn it on. If looping is currently on, it will turn it off.
+
+```python
+def loop():
+    global looping
+    if not looping:
+        looping = True
+    else:
+        looping = False
+    loopStatus.config(text="looping: "+str(looping))
+```
+<br>
+
+The `importer` function allows the user to import media files into the application. It opens a file dialog for the user to select files, then copies the selected files into the "media" folder and adds them to the playlist.
+
+```python
+def importer():
+    global folder, queue
+    files = filedialog.askopenfilenames(filetypes=[("Media files", ".mp3 .wav .ogg")])
+    for i in files:
+        folder.append(i.split("/")[-1])
+        queue.insert(tk.END, i.split("/")[-1])
+        shutil.copy(i, "media/"+i.split("/")[-1])
+    noSongCheck()
+```
+</br>
+
+The `downloadButton` function downloads a media file from a URL entered by the user, then adds the downloaded file to the "media" folder and the playlist.
+
+```python
+def downloadButton():
+    global DownloadEntery, folder, queue, playing
+    name = download(DownloadEntery.get())
+    folder.append(name)
+    queue.insert(tk.END, name)
+```
+______________________________________________________________________
+#### 4. ***Function to check if there are any songs in the folder***
+The `noSongCheck` function checks if there are any songs in the folder. If the `Songname` label text is "No songs in folder", it means there are no songs in the folder. In this case, it sets the `Songname` label text and the window title to the name of the first song in the folder, then calls the `forward` and `play` functions to start playing the first song.
+```python
+def noSongCheck():
+    global folder, queue
+    if Songname.cget("text") == "No songs in folder":
+        Songname.config(text=folder[0])
+        root.title(folder[0])
+        forward()
+        play()
+```
+______________________________________________________________________

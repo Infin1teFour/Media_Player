@@ -155,7 +155,7 @@ def downloadButton():
     folder.append(name)
     queue.insert(tk.END, name)
 
-
+# Function to check if there are any songs in the folder
 def noSongCheck():
     global folder, queue
     if Songname.cget("text") == "No songs in folder":
