@@ -270,38 +270,40 @@ if len(folder) > 0:
 else:
     Songname.config(text="No songs in folder")
 
-
-
-widget_list1 = [root, volumeLabel, loopStatus, volumeSlider]
 def change_colour1():
-    global widget_list1, root_entry
+    global applylist1, root_entry, button_entry, applylist2
+    for wid in applylist1:
+        wid.config(bg = root_entry.get())
     
-     #Get the entered text of the Entry widget
-    for wid in widget_list1:
-        wid.configure(bg = root_entry.get())
-
+    DownloadEntery.config(bg= entry_entry.get())
+    queue.config(fg = listbox_entry.get())
 def motyw():
-    global root_entry, button_entry, listbox_entry
-    mot = tk.Toplevel(root)
-    mot.resizable(0,0)
-    mot.title("Media Player - motywy")
-    mot.config(bg= root_bg)
-    mot.iconbitmap("icon.ico")
-    root_label = Label(mot, text="podaj kolor tła", bg= root_bg)
+    global root_entry, button_entry, listbox_entry, root2, root_label, root_entry, button_entry, button_label, listbox_entry, listbox_label, apply_button, entry_entry
+    root2 = tk.Toplevel(root)
+    root2.resizable(0,0)
+    root2.title("Media Player - motywy")
+    root2.config(bg= root_bg)
+    root_label = Label(root2, text="podaj kolor tła", bg= root_bg)
     root_label.grid()
-    root_entry = Entry(mot, width=50,bg=entry_bg)
+    root_entry = Entry(root2, width=50,bg=entry_bg)
     root_entry.grid()
-    root_button = Button(mot, text = "potwierdź", bg=button_bg, command=change_colour1)
-    root_button.grid()
-    button_label = Label(mot, text="podaj kolor przycisków", bg= root_bg)
+    button_label = Label(root2, text="podaj kolor przycisków", bg= root_bg)
     button_label.grid()
-    button_entry = Entry(mot, width=50,bg=entry_bg)
+    button_entry = Entry(root2, width=50,bg=entry_bg)
     button_entry.grid()
-    listbox_label = Label(mot, text="podaj kolor napisu w polu wyboru piosenki", bg= root_bg)
+    listbox_label = Label(root2, text="podaj kolor napisu w polu wyboru piosenki", bg= root_bg)
     listbox_label.grid()
-    listbox_entry = Entry(mot, width=50,bg=entry_bg)
+    listbox_entry = Entry(root2, width=50,bg=entry_bg)
     listbox_entry.grid()
+    entry_label = Label(root2, text="podaj kolor napisu w polu wyboru piosenki", bg= root_bg)
+    entry_label.grid()
+    entry_entry = Entry(root2, width=50,bg=entry_bg)
+    entry_entry.grid()
+    apply_button = Button(root2, text = "potwierdź", bg=button_bg, command=change_colour1)
+    apply_button.grid()
 
 ui_button = tk.Button(root, text="motyw", padx=10, pady=5, command=motyw, bg=button_bg)
 ui_button.grid()
+applylist1 = [root, volumeLabel, volumeSlider, loopStatus, currenttime, totaltime, progress, Songname]
+applylist2 = [DownloadButton, importButton, randomButton, ForwardsButton, PlayButton, BackwardsButton]
 root.mainloop()
