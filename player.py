@@ -183,24 +183,32 @@ currenttime.grid(column=0, row=2)
 totaltime = tk.Label(root, text="00:00",bg=root_bg)
 totaltime.grid(column=2, row=2)
 
-BackwardsButton = tk.Button(root, text="back", padx=10, pady=5, command=back, bg=button_bg).grid(column=0, row=3)
-PlayButton = tk.Button(root, text="play / pause", padx=10, pady=5, command=play, bg=button_bg).grid(column=1, row=3)
-ForwardsButton = tk.Button(root, text="forward", padx=10, pady=5, command=forward, bg=button_bg).grid(column=2, row=3)
+BackwardsButton = tk.Button(root, text="back", padx=10, pady=5, command=back, bg=button_bg)
+BackwardsButton.grid(column=0, row=3)
+PlayButton = tk.Button(root, text="play / pause", padx=10, pady=5, command=play, bg=button_bg)
+PlayButton.grid(column=1, row=3)
+ForwardsButton = tk.Button(root, text="forward", padx=10, pady=5, command=forward, bg=button_bg)
+ForwardsButton.grid(column=2, row=3)
 
-randomButton = tk.Button(root, text="random", padx=10, pady=5, command=lambda: random.shuffle(folder), bg=button_bg).grid(column=0, row=4)
+randomButton = tk.Button(root, text="random", padx=10, pady=5, command=lambda: random.shuffle(folder), bg=button_bg)
+randomButton.grid(column=0, row=4)
+
 loopStatus = tk.Label(root, text="looping: "+str(looping),bg=root_bg)
 loopStatus.grid(column=1, row=4)
-loopButton = tk.Button(root, text="loop", padx=10, pady=5, command=loop, bg=button_bg).grid(column=2, row=4)
+loopButton = tk.Button(root, text="loop", padx=10, pady=5, command=loop, bg=button_bg)
+loopButton.grid(column=2, row=4)
 
 queue = tk.Listbox(root, width=70, height=10, bg="#000000", fg="#08e600", font=(font, 9))
 queue.grid(column=0, row=5, columnspan=3)
 
-importButton = tk.Button(root, text="import", padx=10, pady=5, command=importer, bg=button_bg).grid(column=1, row=6)
+importButton = tk.Button(root, text="import", padx=10, pady=5, command=importer, bg=button_bg)
+importButton.grid(column=1, row=6)
 
 DownloadEntery = tk.Entry(root, width=50,bg=entry_bg)
 DownloadEntery.grid(column=0, row=7, columnspan=3)
 
-DownloadButton = tk.Button(root, text="download", padx=10, pady=5, command=downloadButton, bg=button_bg).grid(column=2, row=7)
+DownloadButton = tk.Button(root, text="download", padx=10, pady=5, command=downloadButton, bg=button_bg)
+DownloadButton.grid(column=2, row=7)
 
 volumeSlider = tk.Scale(root, from_=100, to=0, orient=tk.VERTICAL, length=420, sliderlength=20, bg=root_bg, highlightthickness=0, troughcolor=button_bg)
 volumeSlider.grid(column=3, row=0, rowspan=8, padx=10)
@@ -209,6 +217,30 @@ volumeSlider.set(100)
 volumeLabel = tk.Label(root, text="Volume", bg=root_bg)
 volumeLabel.grid(column=3, row=8)
 
+def change_color1():
+    global applylist1, root_entry, button_entry, applylist2
+
+    for wid in applylist1:
+        wid.config(bg=root_entry.get())
+
+    for wid1 in applylist2:
+            wid1.config(bg=button_entry.get())
+
+    queue.config(fg=listbox_entry.get())
+    DownloadEntery.config(bg=entry_entry.get())
+
+def change_color2():
+    global applylist1, root_entry, button_entry, applylist2
+
+    for wid2 in applylist1:
+        wid2.config(bg=root_bg)
+
+    for wid3 in applylist2:
+        wid3.config(bg=button_bg)
+
+    queue.config(fg=listbox_fg)
+    DownloadEntery.config(bg=entry_bg)
+    
 for i in folder:
     queue.insert(tk.END, i)
 
@@ -270,13 +302,9 @@ if len(folder) > 0:
 else:
     Songname.config(text="No songs in folder")
 
-def change_colour1():
-    global applylist1, root_entry, button_entry, applylist2
-    for wid in applylist1:
-        wid.config(bg = root_entry.get())
+
     
-    DownloadEntery.config(bg= entry_entry.get())
-    queue.config(fg = listbox_entry.get())
+
 def motyw():
     global root_entry, button_entry, listbox_entry, root2, root_label, root_entry, button_entry, button_label, listbox_entry, listbox_label, apply_button, entry_entry
     root2 = tk.Toplevel(root)
@@ -299,11 +327,18 @@ def motyw():
     entry_label.grid()
     entry_entry = Entry(root2, width=50,bg=entry_bg)
     entry_entry.grid()
-    apply_button = Button(root2, text = "potwierdź", bg=button_bg, command=change_colour1)
+    apply_button = Button(root2, text = "potwierdź", bg=button_bg, command=change_color1)
     apply_button.grid()
+    apply_button = Button(root2, text = "domyślny", bg=button_bg, command=change_color2)
+    apply_button.grid()
+    
 
 ui_button = tk.Button(root, text="motyw", padx=10, pady=5, command=motyw, bg=button_bg)
 ui_button.grid()
+
 applylist1 = [root, volumeLabel, volumeSlider, loopStatus, currenttime, totaltime, progress, Songname]
-applylist2 = [DownloadButton, importButton, randomButton, ForwardsButton, PlayButton, BackwardsButton]
+applylist2 = [DownloadButton, importButton, randomButton, ForwardsButton, PlayButton, BackwardsButton, loopButton, ui_button]
+
+
+
 root.mainloop()
