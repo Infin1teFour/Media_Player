@@ -20,7 +20,7 @@ Code uses two pyhton files to work first one is ***[downloader.py](https://githu
 - [Explainig-dawnloader.py](#explaining-downloaderpy)
     - [Importing-libraries](#1-importing-libraries)
     - [Defineing-dawnload-function](#2-defineing-dawnload-function) 
-2. [Explaining_player.py](#explainig-playerpy)
+- [Explaining_player.py](#explainig-playerpy)
     - [Importing-libraries-and-handling-import-errors](#1-importing-libraries-and-handling-import-errors)
     - [Creating tkinter window and setting up variables](#2-creating-tkinter-window-and-setting-up-variables)
     - [Defining-button-functions](#3-defining-button-functions)
