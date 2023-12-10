@@ -17,14 +17,14 @@ This is a simple media player application built with Python. It uses several lib
 
 Code uses two pyhton files to work first one is ***[downloader.py](https://github.com/Infin1teFour/Media_Player/blob/main/downloader.py)***  and the second file is ***[player.py](https://github.com/Infin1teFour/Media_Player/blob/main/player.py)***. In this section some parts of the code in those files will be explained.
 
-- [Explaining downloader.py](#explaining-downloaderpy)
-    - [Importing libraries](#importing-libraries)
-    - [Defining download function](#defining-download-function) 
-- [Explaining player.py](#explainig-playerpy)
-    - [Importing libraries and handling import errors](#importing-libraries-and-handling-import-errors)
-    - [Creating tkinter window and setting up variables](#creating-tkinter-window-and-setting-up-variables)
-    - [Defining button functions](#defining-button-functions)
-    - [Function to check if there are any songs in the folder](#function-to-check-if-there-are-any-songs-in-the-folder)
+- [Explaining-downloader.py](#explaining-downloaderpy)
+    - [Importing-libraries](#importing-libraries)
+    - [Defining-download-function](#defining-download-function) 
+- [Explaining-player.py](#explainig-playerpy)
+    - [Importing-libraries-and-handling-import-errors](#importing-libraries-and-handling-import-errors)
+    - [Creating-tkinter-window-and-setting-up-variables](#creating-tkinter-window-and-setting-up-variables)
+    - [Defining-button-functions](#defining-button-functions)
+    - [Function-to-check-if-there-are-any-songs-in-the-folder](#function-to-check-if-there-are-any-songs-in-the-folder)
 
 
 ### Explaining ***[downloader.py](https://github.com/Infin1teFour/Media_Player/blob/main/downloader.py)***
