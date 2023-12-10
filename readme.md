@@ -17,19 +17,19 @@ This is a simple media player application built with Python. It uses several lib
 
 Code uses two pyhton files to work first one is ***[downloader.py](https://github.com/Infin1teFour/Media_Player/blob/main/downloader.py)***  and the second file is ***[player.py](https://github.com/Infin1teFour/Media_Player/blob/main/player.py)***. In this section some parts of the code in those files will be explained.
 
-- [Explainig-dawnloader.py](#explaining-downloaderpy)
-    - [Importing-libraries](#1-importing-libraries)
-    - [Defineing-dawnload-function](#2-defineing-dawnload-function) 
-- [Explaining_player.py](#explainig-playerpy)
-    - [Importing-libraries-and-handling-import-errors](#1-importing-libraries-and-handling-import-errors)
-    - [Creating tkinter window and setting up variables](#2-creating-tkinter-window-and-setting-up-variables)
-    - [Defining-button-functions](#3-defining-button-functions)
-    - [Function to check if there are any songs in the folder](#4-function-to-check-if-there-are-any-songs-in-the-folder)
+- [Explaining downloader.py](#explaining-downloaderpy)
+    - [Importing libraries](#importing-libraries)
+    - [Defining download function](#defining-download-function) 
+- [Explaining player.py](#explainig-playerpy)
+    - [Importing libraries and handling import errors](#importing-libraries-and-handling-import-errors)
+    - [Creating tkinter window and setting up variables](#creating-tkinter-window-and-setting-up-variables)
+    - [Defining button functions](#defining-button-functions)
+    - [Function to check if there are any songs in the folder](#function-to-check-if-there-are-any-songs-in-the-folder)
 
 
 ### Explaining ***[downloader.py](https://github.com/Infin1teFour/Media_Player/blob/main/downloader.py)***
 
-#### 1. ***Importing  libraries***
+#### ***Importing  libraries***
 This section of code imports all modules (libraries) needed for the program. That includes `pytube` ( library used to download files from YouTube ), `os` ( a module providing functions for interacting with the operating system ), and `moviepy` ( a tool for video editing: cutting, concatenations, title insertions, video compositing, video processing, and creation of custom effects ).
 ```python
 from pytube import YouTube
@@ -39,7 +39,7 @@ from moviepy.editor import *
 
 
 __________________________________________________________________________________
-#### 2. ***Defineing dawnload function*** 
+#### ***Defineing dawnload function*** 
 
 The following section of code defines a function `download(url)`. This function is responsible for downloading a YouTube video, converting it to an mp3 file, and saving it in the "media" folder. It uses the **pytube** library to download the video, and the **moviepy** library to convert the video to an mp3 file. The **os** module is used to interact with the file system. 
 
@@ -62,8 +62,8 @@ def download(url):
 ```
 <br>
 
-### Explainig ***[player.py](https://github.com/Infin1teFour/Media_Player/blob/main/player.py)*** <br>
-#### 1. ***Importing  libraries and handling import errors***
+### Explainig ***[player.py](https://github.com/Infin1teFour/Media_Player/blob/main/player.py)*** 
+#### ***Importing  libraries and handling import errors***
 This Python script is trying to import several modules that are required for a media player application if its unable to do so it dawnoads the missing reqirements.Here's a brief explanation of what each module does:</br>
 
 - `os`: Provides functions for interacting with the operating system.
@@ -99,7 +99,7 @@ except ImportError:
     os.system("python player.py")
 ```
 __________________________________________________________________________________
-#### 2. ***Creating tkinter window and setting up variables*** 
+#### ***Creating tkinter window and setting up variables*** 
 This block of code initializes the main window of the application, sets its title to "Media Player", makes it non-resizable, sets the background color ( `bg` ) to a shade of grey, and sets the window icon.
 <br>
 
@@ -147,7 +147,7 @@ pastSelected = 0
 pastProgress = 0
 ```
 __________________________________________________________________________________
-#### 3. ***Defining button functions***
+#### ***Defining button functions***
 
 The `play` function controls the playback of the media. If the media is not currently playing, it will start or resume playback. If the media is currently playing, it will pause playback.
 
@@ -278,7 +278,7 @@ def downloadButton():
     queue.insert(tk.END, name)
 ```
 ______________________________________________________________________
-#### 4. ***Function to check if there are any songs in the folder***
+#### ***Function to check if there are any songs in the folder***
 The `noSongCheck` function checks if there are any songs in the folder. If the `Songname` label text is "No songs in folder", it means there are no songs in the folder. In this case, it sets the `Songname` label text and the window title to the name of the first song in the folder, then calls the `forward` and `play` functions to start playing the first song.
 ```python
 def noSongCheck():
