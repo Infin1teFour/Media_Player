@@ -263,4 +263,11 @@ def noSongCheck():
         forward()
         play()
 ```
+####
 ______________________________________________________________________
+
+## Authors 
+
+Jan Jakowicki - <br>
+Bastian Wicisński - <br> 
+Jakub Dratwa - <br>  
