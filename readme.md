@@ -2,12 +2,15 @@
 ## Contents
 
 - [Introduction](#introduction)
+- [Using the program](#using-the-program)
 - [Code-Explenation](#code-explanation)    
 - [Credits](#credits)
 
 ## Introduction
 
-This is a simple media player application built with Python. It uses several libraries including `tkinter` for the GUI, `pygame.mixer` for audio playback, and `pyglet` for font rendering.
+This is a simple media player application built with Python. It uses several libraries including `tkinter` for the GUI, `pygame.mixer` for audio playback, and `pyglet` for font rendering. Program doesn`t reqiere user to dawnload any libraries it will dawnload them by it self.
+
+## Using the program
 
 
 ## Code explanation
@@ -18,6 +21,10 @@ Code uses two pyhton files to work first one is ***[downloader.py](https://githu
     - [Importing-libraries](#1-importing-libraries)
     - [Defineing-dawnload-function](#2-defineing-dawnload-function) 
 2. [Explaining_player.py](#explainig-playerpy)
+    - [Importing-libraries-and-handling-import-errors](#1-importing-libraries-and-handling-import-errors)
+    - [Creating tkinter window and setting up variables](#2-creating-tkinter-window-and-setting-up-variables)
+    - [Defining-button-functions](#3-defining-button-functions)
+    - [Function to check if there are any songs in the folder](#4-function-to-check-if-there-are-any-songs-in-the-folder)
 
 
 ### Explaining ***[downloader.py](https://github.com/Infin1teFour/Media_Player/blob/main/downloader.py)***
