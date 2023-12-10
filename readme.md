@@ -1,9 +1,24 @@
 # Music-Player
+## Contents
+
+- [Introduction](#introduction)
+- [Code-Explenation](#code-explanation)    
+- [Credits](#credits)
+
+## Introduction
+
 This is a simple media player application built with Python. It uses several libraries including `tkinter` for the GUI, `pygame.mixer` for audio playback, and `pyglet` for font rendering.
+
 
 ## Code explanation
 
 Code uses two pyhton files to work first one is ***[downloader.py](https://github.com/Infin1teFour/Media_Player/blob/main/downloader.py)***  and the second file is ***[player.py](https://github.com/Infin1teFour/Media_Player/blob/main/player.py)***. In this section some parts of the code in those files will be explained.
+
+- [Explainig-dawnloader.py](#explaining-downloaderpy)
+    - [Importing-libraries](#1-importing-libraries)
+    - [Defineing-dawnload-function](#2-defineing-dawnload-function) 
+2. [Explaining_player.py](#explainig-playerpy)
+
 
 ### Explaining ***[downloader.py](https://github.com/Infin1teFour/Media_Player/blob/main/downloader.py)***
 
@@ -38,6 +53,7 @@ def download(url):
             return nameNomp4+".mp3"
     print("Converted to mp3")
 ```
+<br>
 
 ### Explainig ***[player.py](https://github.com/Infin1teFour/Media_Player/blob/main/player.py)*** <br>
 #### 1. ***Importing  libraries and handling import errors***
@@ -77,8 +93,7 @@ except ImportError:
 ```
 __________________________________________________________________________________
 #### 2. ***Creating tkinter window and setting up variables*** 
-<br>
-This block of code initializes the main window of the application, sets its title to "Media Player", makes it non-resizable, sets the background color to a shade of grey, and sets the window icon.
+This block of code initializes the main window of the application, sets its title to "Media Player", makes it non-resizable, sets the background color ( `bg` ) to a shade of grey, and sets the window icon.
 <br>
 
 ```python
@@ -89,6 +104,7 @@ root.config(bg="#717291")
 root.iconbitmap("icon.ico")
 ```
 </br>
+
 This block of code sets up the font rendering options for the application. It uses the Nova Square font.</br>
 
 ```python
@@ -97,21 +113,24 @@ pyglet.resource.add_font("NovaSquare-Regular.ttf")
 font = "Nova Square"
 ```
 </br>
-This block of code checks if a directory named "media" exists in the current directory. If it doesn't, it creates one. This is where the media files for the player will be stored.</br>
+
+This block of code checks if a directory named `"media"` exists in the current directory. If it doesn't, it creates one. This is where the media files for the player will be stored.</br>
 
 ```python
 if not os.path.exists("media"):
     os.mkdir("media")
 ```
 </br>
-This block of code initializes the pygame.mixer module for audio playback and sets the initial song index to -1.</br>
+
+This block of code initializes the `pygame.mixer` module for audio playback and sets the initial song index to -1.</br>
 
 ```python
 mixer.init()
 songindex = -1
 ```
 </br>
-This block of code sets up several variables for the application. played and playing are flags to track the playback status. folder is a list of files in the "media" directory. looping is a flag to track if the playlist should loop. pastSelected and pastProgress are variables to track the previously selected song and playback progress.<br>
+
+This block of code sets up several variables for the application. `played` and `playing` are flags to track the playback status. folder is a list of files in the "media" directory. looping is a flag to track if the playlist should loop. pastSelected and pastProgress are variables to track the previously selected song and playback progress.<br>
 
 ```played = False
 playing = False
@@ -266,8 +285,8 @@ def noSongCheck():
 ####
 ______________________________________________________________________
 
-## Authors 
+## Credits 
 
-Jan Jakowicki - <br>
-Bastian Wicisński - <br> 
-Jakub Dratwa - <br>  
+***Jan Jakowicki*** - <br>
+***Bastian Wiciński*** - <br> 
+***Jakub Dratwa*** - <br>  
