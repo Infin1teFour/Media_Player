@@ -293,5 +293,5 @@ def noSongCheck():
 ## Credits 
 
 ***Jan Jakowicki*** - <br>
-***Bastian Wiciński*** - <br> 
+***Bastian Wiciński*** - Code documentation <br> 
 ***Jakub Dratwa*** - <br>  
