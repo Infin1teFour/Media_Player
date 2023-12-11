@@ -38,7 +38,6 @@ from moviepy.editor import *
 ```
 
 
-__________________________________________________________________________________
 #### ***Defineing dawnload function*** 
 
 The following section of code defines a function `download(url)`. This function is responsible for downloading a YouTube video, converting it to an mp3 file, and saving it in the "media" folder. It uses the **pytube** library to download the video, and the **moviepy** library to convert the video to an mp3 file. The **os** module is used to interact with the file system. 
@@ -98,7 +97,7 @@ except ImportError:
     print("Restarting...")
     os.system("python player.py")
 ```
-__________________________________________________________________________________
+
 #### ***Creating tkinter window and setting up variables*** 
 This block of code initializes the main window of the application, sets its title to "Media Player", makes it non-resizable, sets the background color ( `bg` ) to a shade of grey, and sets the window icon.
 <br>
@@ -146,7 +145,7 @@ looping = False
 pastSelected = 0
 pastProgress = 0
 ```
-__________________________________________________________________________________
+
 #### ***Defining button functions***
 
 The `play` function controls the playback of the media. If the media is not currently playing, it will start or resume playback. If the media is currently playing, it will pause playback.
@@ -277,7 +276,7 @@ def downloadButton():
     folder.append(name)
     queue.insert(tk.END, name)
 ```
-______________________________________________________________________
+
 #### ***Function to check if there are any songs in the folder***
 The `noSongCheck` function checks if there are any songs in the folder. If the `Songname` label text is "No songs in folder", it means there are no songs in the folder. In this case, it sets the `Songname` label text and the window title to the name of the first song in the folder, then calls the `forward` and `play` functions to start playing the first song.
 ```python
@@ -290,7 +289,6 @@ def noSongCheck():
         play()
 ```
 ####
-______________________________________________________________________
 
 ## Credits 
 
