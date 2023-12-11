@@ -171,6 +171,7 @@ def noSongCheck():
 
 def quit1():
     root.destroy()
+    root2.destroy()
 
 def quit2():
     root2.destroy()
@@ -230,20 +231,27 @@ def change_color1():
             wid.config(bg=root_entry.get())
     except TclError:
         print("nie wykryto danych do zmiany koloru tła")
+    else:
+        print("zmieniono kolor")
     try:
         for wid1 in applylist2:
                 wid1.config(bg=button_entry.get())
     except TclError:
         print("nie wykryto danych do zmiany koloru przycisków")
+    else:
+        print("zmieniono kolor")
     try:
         queue.config(fg=listbox_entry.get())
     except TclError:
-        print("nie wykryto danych do zmiany koloru napisu w polu wyboru piosenki")   
+        print("nie wykryto danych do zmiany koloru napisu w polu wyboru piosenki")
+    else:
+        print("zmieniono kolor")   
     try:
         DownloadEntery.config(bg=entry_entry.get())
     except TclError:
         print("nie wykryto danych do zmiany koloru pola wprowadzania")
-        
+    else:
+        print("zmieniono kolor")    
     
 def change_color2():
     global applylist1, root_entry, button_entry, applylist2
@@ -255,7 +263,7 @@ def change_color2():
     
     queue.config(fg=listbox_fg)
     DownloadEntery.config(bg=entry_bg)
-    
+    print("ustawiono motyw domyślny")
     
 for i in folder:
     queue.insert(tk.END, i)
