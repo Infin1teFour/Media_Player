@@ -169,7 +169,11 @@ def noSongCheck():
         forward()
         play()
 
+def quit1():
+    root.destroy()
 
+def quit2():
+    root2.destroy()
 
 
 
@@ -217,29 +221,41 @@ volumeSlider.set(100)
 volumeLabel = tk.Label(root, text="Volume", bg=root_bg)
 volumeLabel.grid(column=3, row=8)
 
+quitbutton = tk.Button(root, text="quit", command= quit1, bg=button_bg)
+quitbutton.grid()
 def change_color1():
     global applylist1, root_entry, button_entry, applylist2
-
-    for wid in applylist1:
-        wid.config(bg=root_entry.get())
-
-    for wid1 in applylist2:
-            wid1.config(bg=button_entry.get())
-
-    queue.config(fg=listbox_entry.get())
-    DownloadEntery.config(bg=entry_entry.get())
-
+    try:
+        for wid in applylist1:
+            wid.config(bg=root_entry.get())
+    except TclError:
+        print("nie wykryto danych do zmiany koloru tła")
+    try:
+        for wid1 in applylist2:
+                wid1.config(bg=button_entry.get())
+    except TclError:
+        print("nie wykryto danych do zmiany koloru przycisków")
+    try:
+        queue.config(fg=listbox_entry.get())
+    except TclError:
+        print("nie wykryto danych do zmiany koloru napisu w polu wyboru piosenki")   
+    try:
+        DownloadEntery.config(bg=entry_entry.get())
+    except TclError:
+        print("nie wykryto danych do zmiany koloru pola wprowadzania")
+        
+    
 def change_color2():
     global applylist1, root_entry, button_entry, applylist2
-
     for wid2 in applylist1:
         wid2.config(bg=root_bg)
-
+    
     for wid3 in applylist2:
         wid3.config(bg=button_bg)
-
+    
     queue.config(fg=listbox_fg)
     DownloadEntery.config(bg=entry_bg)
+    
     
 for i in folder:
     queue.insert(tk.END, i)
@@ -323,7 +339,7 @@ def motyw():
     listbox_label.grid()
     listbox_entry = Entry(root2, width=50,bg=entry_bg)
     listbox_entry.grid()
-    entry_label = Label(root2, text="podaj kolor napisu w polu wyboru piosenki", bg= root_bg)
+    entry_label = Label(root2, text="podaj kolor pola wprowadzania", bg= root_bg)
     entry_label.grid()
     entry_entry = Entry(root2, width=50,bg=entry_bg)
     entry_entry.grid()
@@ -331,13 +347,14 @@ def motyw():
     apply_button.grid()
     apply_button = Button(root2, text = "domyślny", bg=button_bg, command=change_color2)
     apply_button.grid()
-    
+    quit_button1 = tk.Button(root2, text="quit", command= quit2, bg=button_bg)
+    quit_button1.grid()
 
 ui_button = tk.Button(root, text="motyw", padx=10, pady=5, command=motyw, bg=button_bg)
 ui_button.grid()
 
 applylist1 = [root, volumeLabel, volumeSlider, loopStatus, currenttime, totaltime, progress, Songname]
-applylist2 = [DownloadButton, importButton, randomButton, ForwardsButton, PlayButton, BackwardsButton, loopButton, ui_button]
+applylist2 = [DownloadButton, importButton, randomButton, ForwardsButton, PlayButton, BackwardsButton, loopButton, ui_button, quitbutton]
 
 
 
