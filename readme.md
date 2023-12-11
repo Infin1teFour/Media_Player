@@ -292,6 +292,11 @@ def noSongCheck():
 
 ## Credits 
 
-***Jan Jakowicki*** - <br>
-***Bastian Wiciński*** - Code documentation <br> 
-***Jakub Dratwa*** - <br>  
+This project is the result of the efforts of :
+
+**Jan Jakowicki** - Responsible for the core functionality of the program.<br>
+
+**Bastian Wiciński** - Handled the documentation of the code.<br> 
+
+**Jakub Dratwa** - Took charge of the User Interface (UI). <br>
+
