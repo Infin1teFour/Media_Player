@@ -11,7 +11,11 @@
 This is a simple media player application built with Python. It uses several libraries including `tkinter` for the GUI, `pygame.mixer` for audio playback, and `pyglet` for font rendering. Program doesn`t reqiere user to dawnload any libraries it will dawnload them by it self.
 
 ## Using the program
-
+To run this program run the player.py file.
+If you want to dawnload music from youtube then follow this steps:
+1. Copy the link to the audio that you want to download.
+2. Paste the link to youtube to the entry bar on the bottom of the window.
+3. After that press the dawnload button next to the entry bar.
 
 ## Code explanation
 
@@ -299,4 +303,5 @@ This project is the result of the efforts of :
 **Bastian Wiciński** - Handled the documentation of the code.<br> 
 
 **Jakub Dratwa** - Took charge of the User Interface (UI). <br>
+
 
