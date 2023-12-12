@@ -38,17 +38,14 @@ The ***motives*** button allows you to customize the appearance of the music pla
 Code uses two pyhton files to work first one is ***[downloader.py](https://github.com/Infin1teFour/Media_Player/blob/main/downloader.py)***  and the second file is ***[player.py](https://github.com/Infin1teFour/Media_Player/blob/main/player.py)***. In this section some parts of the code in those files will be explained.
 
 - [Explaining-downloader.py](#explaining-downloaderpy)
-    - [Importing-libraries](#importing-libraries)
-    - [Defining-download-function](#defining-download-function) 
+    
 - [Explaining-player.py](#explainig-playerpy)
-    - [Importing-libraries-and-handling-import-errors](#importing-libraries-and-handling-import-errors)
-    - [Creating-tkinter-window-and-setting-up-variables](#creating-tkinter-window-and-setting-up-variables)
-    - [Defining-button-functions](#defining-button-functions)
-    - [Function-to-check-if-there-are-any-songs-in-the-folder](#function-to-check-if-there-are-any-songs-in-the-folder)
+    
 
 
 ### Explaining ***[downloader.py](https://github.com/Infin1teFour/Media_Player/blob/main/downloader.py)***
-
+- [Importing-libraries](#importing-libraries)
+- [Defining-download-function](#defining-download-function) 
 #### ***Importing  libraries***
 This section of code imports all modules (libraries) needed for the program. That includes `pytube` ( library used to download files from YouTube ), `os` ( a module providing functions for interacting with the operating system ), and `moviepy` ( a tool for video editing: cutting, concatenations, title insertions, video compositing, video processing, and creation of custom effects ).
 ```python
@@ -82,6 +79,10 @@ def download(url):
 <br>
 
 ### Explainig ***[player.py](https://github.com/Infin1teFour/Media_Player/blob/main/player.py)*** 
+- [Importing-libraries-and-handling-import-errors](#importing-libraries-and-handling-import-errors)
+- [Creating-tkinter-window-and-setting-up-variables](#creating-tkinter-window-and-setting-up-variables)
+- [Defining-button-functions](#defining-button-functions)
+- [Function-to-check-if-there-are-any-songs-in-the-folder](#function-to-check-if-there-are-any-songs-in-the-folder)
 #### ***Importing  libraries and handling import errors***
 This Python script is trying to import several modules that are required for a media player application if its unable to do so it dawnoads the missing reqirements.Here's a brief explanation of what each module does:</br>
 
