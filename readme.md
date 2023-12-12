@@ -45,7 +45,7 @@ Code uses two pyhton files to work first one is ***[downloader.py](https://githu
 
 ### Explaining ***[downloader.py](https://github.com/Infin1teFour/Media_Player/blob/main/downloader.py)***
 - [Importing-libraries](#importing-libraries)
-- [Defining-download-function](#defining-download-function) 
+- [Defining-download-function](#defineing-download-function) 
 #### ***Importing  libraries***
 This section of code imports all modules (libraries) needed for the program. That includes `pytube` ( library used to download files from YouTube ), `os` ( a module providing functions for interacting with the operating system ), and `moviepy` ( a tool for video editing: cutting, concatenations, title insertions, video compositing, video processing, and creation of custom effects ).
 ```python
@@ -320,5 +320,8 @@ This project is the result of the efforts of :
 **Bastian Wiciński** - Handled the documentation of the code.<br> 
 
 **Jakub Dratwa** - Took charge of the User Interface (UI). <br>
+
+
+
 
 
