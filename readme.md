@@ -84,7 +84,7 @@ def download(url):
 - [Creating-tkinter-window-and-setting-up-variables](#creating-tkinter-window-and-setting-up-variables)
 - [Defining-button-functions](#defining-button-functions)
 - [Function-to-check-if-there-are-any-songs-in-the-folder](#function-to-check-if-there-are-any-songs-in-the-folder)
-#### ***Importing  libraries and handling import errors***
+#### ***Importing libraries and handling import errors***
 This Python script is trying to import several modules that are required for a media player application if its unable to do so it dawnoads the missing reqirements.Here's a brief explanation of what each module does:</br>
 
 - `os`: Provides functions for interacting with the operating system.
