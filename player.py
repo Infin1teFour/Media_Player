@@ -25,7 +25,7 @@ root = tk.Tk()
 root.resizable(0,0)
 root.title("Media Player")
 root.config(bg="#717291")
-root.iconbitmap("grafiki/icon.ico")
+root.iconbitmap("icon.ico")
 
 # Setting up fonts
 pyglet.options['win32_gdi_font'] = True
@@ -155,7 +155,7 @@ def downloadButton():
     folder.append(name)
     queue.insert(tk.END, name)
 
-
+# Function to check if there are any songs in the folder
 def noSongCheck():
     global folder, queue
     if Songname.cget("text") == "No songs in folder":
