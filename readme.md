@@ -8,15 +8,31 @@
 
 ## Introduction
 
-This is a simple media player application built with Python. It uses several libraries including `tkinter` for the GUI, `pygame.mixer` for audio playback, and `pyglet` for font rendering. Program doesn`t reqiere user to dawnload any libraries it will dawnload them by it self.
+This is a simple media player application built with Python. It uses several libraries including `tkinter` for the GUI, `pygame.mixer` for audio playback, and `pyglet` for font rendering. Program doesn`t reqiere user to download any libraries it will download them by it self.
 
 ## Using the program
-To run this program run the player.py file.
-If you want to dawnload music from youtube then follow this steps:
-1. Copy the link to the audio that you want to download.
-2. Paste the link to youtube to the entry bar on the bottom of the window.
-3. After that press the dawnload button next to the entry bar.
 
+To run this program, execute the `player.py` file.
+
+To download music from **YouTube**, follow these steps:
+1. Copy the link to the audio that you want to download.
+2. Paste the link into the entry bar at the bottom of the window.
+3. Press the ***download*** button next to the entry bar.
+
+To import files from another folder, press the import button and select the desired file destination.<br> 
+
+To play the imported or downloaded audio, select it from the playlist 
+in the middle of the window and press the play button.<br>
+
+Use the ***forward*** and ***backward* buttons to navigate through the playlist.<br>
+
+The ***loop button*** allows you to loop the currently playing audio.<br>
+
+Press the ***play/pause button*** to control the playback.<br>
+
+The ***random*** button shuffles the playlist.<br>
+
+The ***motives*** button allows you to customize the appearance of the music player.
 ## Code explanation
 
 Code uses two pyhton files to work first one is ***[downloader.py](https://github.com/Infin1teFour/Media_Player/blob/main/downloader.py)***  and the second file is ***[player.py](https://github.com/Infin1teFour/Media_Player/blob/main/player.py)***. In this section some parts of the code in those files will be explained.
@@ -42,7 +58,7 @@ from moviepy.editor import *
 ```
 
 
-#### ***Defineing dawnload function*** 
+#### ***Defineing download function*** 
 
 The following section of code defines a function `download(url)`. This function is responsible for downloading a YouTube video, converting it to an mp3 file, and saving it in the "media" folder. It uses the **pytube** library to download the video, and the **moviepy** library to convert the video to an mp3 file. The **os** module is used to interact with the file system. 
 
