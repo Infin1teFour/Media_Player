@@ -310,7 +310,110 @@ def noSongCheck():
         forward()
         play()
 ```
-####
+#### change_color1() and change_color2()
+
+This function attempts to change the background color of widgets in applylist1 and applylist2 to the colors specified by root_entry and button_entry respectively. It also tries to change the foreground color of queue and the background color of DownloadEntery to the colors specified by listbox_entry and entry_entry respectively. If any of these operations fail (for example, if the specified color is not valid), a TclError is caught and a message is printed to the console.
+
+```python
+def change_color1():
+    global applylist1, root_entry, button_entry, applylist2
+    try:
+        for wid in applylist1:
+            wid.config(bg=root_entry.get())
+    except TclError:
+        print("No data to change root color")
+    else:
+        print("color changed")
+    try:
+        for wid1 in applylist2:
+                wid1.config(bg=button_entry.get())
+    except TclError:
+        print("No data to change button color")
+    else:
+        print("color changed")
+    try:
+        queue.config(fg=listbox_entry.get())
+    except TclError:
+        print("No data to change button color")
+    else:
+        print("color changed")   
+    try:
+        DownloadEntery.config(bg=entry_entry.get())
+    except TclError:
+        print("No data to change button color")
+    else:
+        print("color changed")    
+```
+<br>
+
+This function changes the background color of widgets in applylist1 and applylist2 to root_bg and button_bg respectively. It also changes the foreground color of queue and the background color of DownloadEntery to listbox_fg and entry_bg respectively. This function does not catch any exceptions, so it assumes that the color values are valid. After all color changes have been made, it prints a message to the console indicating that the default colors have been set.
+```python
+def change_color2():
+    global applylist1, root_entry, button_entry, applylist2
+    for wid2 in applylist1:
+        wid2.config(bg=root_bg)
+    
+    for wid3 in applylist2:
+        wid3.config(bg=button_bg)
+    
+    queue.config(fg=listbox_fg)
+    DownloadEntery.config(bg=entry_bg)
+    print("Default colors have been set")
+    
+```
+
+**Note**: The variables applylist1, applylist2, root_entry, button_entry, root_bg, button_bg, listbox_entry, entry_entry, listbox_fg, entry_bg, queue, and DownloadEntery are assumed to be globally defined.
+#### Motives function
+This function creates a new top-level window (root2) with the title "Motiv settings". The window is not resizable and its background color is set to root_bg.
+
+In this window, several labels and entry fields are created for the user to enter their preferred colors for different parts of the application. The labels are used to instruct the user on what each entry field is for, and the entry fields are where the user can enter their color choices.
+
+The labels and entry fields are arranged in a grid layout. Each label is followed by its corresponding entry field in the next row of the grid.
+
+There are entry fields for the following:
+
+- Background color (root_entry)
+- Button color (button_entry)
+- Listbox color (listbox_entry)
+- Entry bar color (entry_entry)
+Two buttons are also created in this window:
+
+- The "Apply changes" button (apply_button), which when clicked, calls the change_color1() function to apply the color changes entered by the user.
+- The "Default" button, which when clicked, calls the change_color2() function to reset the colors to their default values.
+Finally, a "quit" button (quit_button1) is created, which when clicked, calls the quit2() function to close the window.
+
+**Note**: The variables root_entry, button_entry, listbox_entry, root2, root_label, root_entry, button_entry, button_label, listbox_entry, listbox_label, apply_button, entry_entry, root_bg, entry_bg, button_bg, and the functions change_color1(), change_color2(), and quit2() are assumed to be globally defined.
+
+```python
+def motyw():
+    global root_entry, button_entry, listbox_entry, root2, root_label, root_entry, button_entry, button_label, listbox_entry, listbox_label, apply_button, entry_entry
+    root2 = tk.Toplevel(root)
+    root2.resizable(0,0)
+    root2.title("Motiv settings")
+    root2.config(bg= root_bg)
+    root_label = Label(root2, text="Enter background color", bg= root_bg)
+    root_label.grid()
+    root_entry = Entry(root2, width=50,bg=entry_bg)
+    root_entry.grid()
+    button_label = Label(root2, text="Enter button color", bg= root_bg)
+    button_label.grid()
+    button_entry = Entry(root2, width=50,bg=entry_bg)
+    button_entry.grid()
+    listbox_label = Label(root2, text="Enter listbox color", bg= root_bg)
+    listbox_label.grid()
+    listbox_entry = Entry(root2, width=50,bg=entry_bg)
+    listbox_entry.grid()
+    entry_label = Label(root2, text="Enter entrybar color", bg= root_bg)
+    entry_label.grid()
+    entry_entry = Entry(root2, width=50,bg=entry_bg)
+    entry_entry.grid()
+    apply_button = Button(root2, text = "Aply changes", bg=button_bg, command=change_color1)
+    apply_button.grid()
+    apply_button = Button(root2, text = "Default", bg=button_bg, command=change_color2)
+    apply_button.grid()
+    quit_button1 = tk.Button(root2, text="quit", command= quit2, bg=button_bg)
+    quit_button1.grid()
+```
 
 ## Credits 
 
