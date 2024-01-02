@@ -206,7 +206,7 @@ loopButton.grid(column=2, row=4)
 queue = tk.Listbox(root, width=70, height=10, bg="#000000", fg="#08e600", font=(font, 9))
 queue.grid(column=0, row=5, columnspan=3)
 
-importButton = tk.Button(root, text="import", padx=10, pady=5, command=importer, bg=button_bg)
+importButton = tk.Button(root, text="import from folder", padx=10, pady=5, command=importer, bg=button_bg)
 importButton.grid(column=1, row=6)
 
 DownloadEntery = tk.Entry(root, width=50,bg=entry_bg)
