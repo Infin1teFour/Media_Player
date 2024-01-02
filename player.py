@@ -31,6 +31,7 @@ root.resizable(0,0)
 root.title("Media Player")
 root.config(bg="#717291")
 root.iconbitmap("grafiki/icon.ico")
+root.geometry("620x480")
 
 # Setting up fonts
 pyglet.options['win32_gdi_font'] = True
@@ -364,7 +365,5 @@ quitbutton.grid(column=3, row=9)
 
 applylist1 = [root, volumeLabel, volumeSlider, loopStatus, currenttime, totaltime, progress, Songname]
 applylist2 = [DownloadButton, importButton, randomButton, ForwardsButton, PlayButton, BackwardsButton, loopButton, ui_button, quitbutton]
-
-
 
 root.mainloop()
