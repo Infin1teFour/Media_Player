@@ -1,4 +1,9 @@
 <!--Hipity hopity-->
+## Download the latest release here
+https://github.com/Infin1teFour/Media_Player/releases/latest
+
+
+
 # Music-Player
 ## Contents
 
