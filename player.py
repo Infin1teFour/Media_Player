@@ -222,8 +222,6 @@ volumeSlider.set(100)
 volumeLabel = tk.Label(root, text="Volume", bg=root_bg)
 volumeLabel.grid(column=3, row=8)
 
-quitbutton = tk.Button(root, text="quit", command= quit1, bg=button_bg)
-quitbutton.grid()
 def change_color1():
     global applylist1, root_entry, button_entry, applylist2
     try:
@@ -359,7 +357,10 @@ def motyw():
     quit_button1.grid()
 
 ui_button = tk.Button(root, text="Motives", padx=10, pady=5, command=motyw, bg=button_bg)
-ui_button.grid()
+ui_button.grid(column=0, row=9)
+
+quitbutton = tk.Button(root, text="quit", padx=10, pady=5, command= quit1, bg=button_bg)
+quitbutton.grid(column=3, row=9)
 
 applylist1 = [root, volumeLabel, volumeSlider, loopStatus, currenttime, totaltime, progress, Songname]
 applylist2 = [DownloadButton, importButton, randomButton, ForwardsButton, PlayButton, BackwardsButton, loopButton, ui_button, quitbutton]
